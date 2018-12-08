@@ -4,7 +4,18 @@ var https = require('https');
 var http = require('http');
 var fs = require('fs');
 var router = express.Router();
+const axios = require('axios');
+
 const port = 443;
+const restServer = "https://twychocki.net:3000";
+
+const httpsAgent = new https.Agent(
+{
+    rejectUnauthorized: false,
+    cert: fs.readFileSync('sec/twychocki.net.crt')
+});
+
+const httpsAnxios = axios.create({ httpsAgent });
 
 app.use(function(req, res, next) 
 {
@@ -20,9 +31,33 @@ app.use(function(req, res, next)
 
 app.use(express.static(__dirname + '/public'));
 
+app.use(express.json());
+
 router.get('/', function(req, res, next)
 {
     res.sendFile('index.html');
+});
+
+router.get('/rest', function(request, response)
+{
+    httpsAnxios.get(restServer)
+    .then(function(res)
+    {
+        response.send(res.data);
+    });
+});
+
+router.post('/rest', function(request, response)
+{
+    let data = {
+        value: request.body.value
+    };
+
+    httpsAnxios.post(restServer, data)
+    .then(function(res)
+    {
+        response.send(res.data);
+    });
 });
 
 app.use('/', router);

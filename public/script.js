@@ -1,26 +1,54 @@
-let restServer = "https://twychocki.net:3000/"
+const restServer = "https://twychocki.net:3000"
+const server = "https://twychocki.org"
 
-function sendGET() 
+function getValue()
 {
-    fetch(restServer,
-    {
-        method: 'GET'
-    })
-    .then(res => res.json())
-    .then(response => 
-        document.getElementById('textbox').value = response.value
-    )
-    .catch(error => console.error('Error:', error));
+    sendGET(restServer).then(json => 
+        document.getElementById('textbox').value = json.value
+    );
 }
 
-function sendPOST()
+function setValue()
 {
-    fetch(restServer, 
+    sendPOST(restServer, JSON.stringify(
+    {
+        "value" : document.getElementById('textbox').value
+    }));
+}
+
+function restGET()
+{
+    sendGET(server + "/rest").then(json => 
+        document.getElementById('textbox').value = json.value
+    );
+}
+
+function restPOST()
+{
+    sendPOST(server + "/rest", JSON.stringify(
+    {
+        "value" : document.getElementById('textbox').value
+    }));
+}
+
+async function sendGET(url) 
+{
+    let promise = await fetch(url,
+                {
+                    method: 'GET'
+                })
+                .then(res => res.json())
+                .catch(error => console.error('Error:', error));
+
+    return promise;
+}
+
+function sendPOST(url, body)
+{
+    fetch(url, 
     {
         method: 'POST',
-        body: JSON.stringify({
-            "value" : document.getElementById('textbox').value
-        }),
+        body: body,
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'

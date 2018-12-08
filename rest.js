@@ -15,7 +15,6 @@ app.use(function(req, res, next)
     next();
 });
   
-
 app.get('/', function(request, response)
 {
     response.json({"value": value});
