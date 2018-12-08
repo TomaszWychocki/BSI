@@ -1,6 +1,8 @@
-const express = require('express')
-const app = express()
-const port = 3000
+var express = require('express');
+var app = express();
+var https = require('https');
+var fs = require('fs');
+const port = 3000;
 
 let value = 0;
 
@@ -25,4 +27,9 @@ app.post('/', function(request, response)
     response.json({"value": value});
 });
 
-app.listen(port, () => console.log(`REST started on port ${port}!`))
+https.createServer(
+{
+    key: fs.readFileSync('sec/twychocki.net.key'),
+    cert: fs.readFileSync('sec/twychocki.net.crt')
+}, app)
+.listen(port, () => console.log(`REST started on port ${port}!`));

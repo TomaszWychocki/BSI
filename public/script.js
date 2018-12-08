@@ -1,4 +1,4 @@
-let restServer = "http://twychocki.net:3000/"
+let restServer = "https://twychocki.net:3000/"
 
 function sendGET() 
 {

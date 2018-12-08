@@ -31,7 +31,7 @@ http.createServer(app).listen(80);
 
 https.createServer(
 {
-    key: fs.readFileSync('sec/twychocki.net.key'),
-    cert: fs.readFileSync('sec/twychocki.net.crt')
+    key: fs.readFileSync('sec/twychocki.org.key'),
+    cert: fs.readFileSync('sec/twychocki.org.crt')
 }, app)
 .listen(port, () => console.log(`Server started on port ${port}!`));
