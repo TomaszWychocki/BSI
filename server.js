@@ -5,9 +5,11 @@ var http = require('http');
 var fs = require('fs');
 var router = express.Router();
 const axios = require('axios');
+var jwt = require('jsonwebtoken');
 
 const port = 443;
 const restServer = "https://twychocki.net:3000";
+const token = jwt.sign({id: 2}, 'nieprawdopodobnySekret', {expiresIn: 120});
 
 const httpsAgent = new https.Agent(
 {
@@ -61,6 +63,36 @@ router.post('/rest', function(request, response)
     auth: {
         username: "admin",
         password: "password"
+    }})
+    .then(function(res)
+    {
+        response.send(res.data);
+    });
+});
+
+router.get('/restjwt', function(request, response)
+{
+    console.log(token);
+
+    httpsAxios.get(restServer + '/jwt', {
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }})
+    .then(function(res)
+    {
+        response.send(res.data);
+    });
+});
+
+router.post('/restjwt', function(request, response)
+{
+    let data = {
+        value: request.body.value
+    };
+
+    httpsAxios.post(restServer + '/jwt', data, {
+    headers: {
+        'Authorization': `Bearer ${token}`
     }})
     .then(function(res)
     {

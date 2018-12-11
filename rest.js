@@ -4,6 +4,9 @@ var https = require('https');
 var fs = require('fs');
 var passport = require('passport');
 var BasicStrategy = require('passport-http').BasicStrategy;
+var passportJWT = require("passport-jwt");
+var JwtStrategy = passportJWT.Strategy;
+var ExtractJwt = passportJWT.ExtractJwt;
 
 const port = 3000;
 let value = 0;
@@ -66,6 +69,33 @@ app.post('/basic', passport.authenticate('basic', {session: false}), function(re
     response.json({"value": value});
 });
 
+passport.use( new JwtStrategy(
+    {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: 'nieprawdopodobnySekret'
+    },
+    (jwtPayload, next) => {
+        let user = User.find(u => 
+            u.id === jwtPayload.id
+        );
+
+        if (!user) 
+            return next(null, false);
+        else
+            return next(null, user);
+    }
+));
+
+app.get('/jwt', passport.authenticate('jwt', {session: false}), function(request, response)
+{
+    response.json({"value": value});
+});
+
+app.post('/jwt', passport.authenticate('jwt', {session: false}), function(request, response)
+{
+    value = request.body.value;
+    response.json({"value": value});
+});
 
 https.createServer(
 {

@@ -18,14 +18,14 @@ function setValue()
 
 function restGET()
 {
-    sendGET(server + "/rest").then(json => 
+    sendGET(server + "/restjwt").then(json => 
         document.getElementById('textbox').value = json.value
     );
 }
 
 function restPOST()
 {
-    sendPOST(server + "/rest", JSON.stringify(
+    sendPOST(server + "/restjwt", JSON.stringify(
     {
         "value" : document.getElementById('textbox').value
     }));
