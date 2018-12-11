@@ -15,7 +15,7 @@ const httpsAgent = new https.Agent(
     cert: fs.readFileSync('sec/twychocki.net.crt')
 });
 
-const httpsAnxios = axios.create({ httpsAgent });
+const httpsAxios = axios.create({ httpsAgent });
 
 app.use(function(req, res, next) 
 {
@@ -40,7 +40,11 @@ router.get('/', function(req, res, next)
 
 router.get('/rest', function(request, response)
 {
-    httpsAnxios.get(restServer)
+    httpsAxios.get(restServer + '/basic', {
+    auth: {
+        username: "admin",
+        password: "password"
+    }})
     .then(function(res)
     {
         response.send(res.data);
@@ -53,7 +57,11 @@ router.post('/rest', function(request, response)
         value: request.body.value
     };
 
-    httpsAnxios.post(restServer, data)
+    httpsAxios.post(restServer + '/basic', data, {
+    auth: {
+        username: "admin",
+        password: "password"
+    }})
     .then(function(res)
     {
         response.send(res.data);
