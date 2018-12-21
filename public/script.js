@@ -18,12 +18,27 @@ function setValue()
 
 function restGET()
 {
-    sendGET(server + "/restjwt").then(json => 
+    sendGET(server + "/rest").then(json => 
         document.getElementById('textbox').value = json.value
     );
 }
 
 function restPOST()
+{
+    sendPOST(server + "/rest", JSON.stringify(
+    {
+        "value" : document.getElementById('textbox').value
+    }));
+}
+
+function jwtGET()
+{
+    sendGET(server + "/restjwt").then(json => 
+        document.getElementById('textbox').value = json.value
+    );
+}
+
+function jwtPOST()
 {
     sendPOST(server + "/restjwt", JSON.stringify(
     {

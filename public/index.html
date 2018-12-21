@@ -1,20 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>BSI</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="script.js"></script>
 </head>
+
 <body>
-    <input type="text" name="textbox" id="textbox">
-    <input type="button" value="GET" onclick="getValue()">
-    <input type="button" value="POST" onclick="setValue()">
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="col">
+            </div>
+            <div class="col-6">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Bezpieczeństwo systemów internetowych
+                    </div>
+                    <div class="card-body">
+                        <input type="text" class="form-control" name="textbox" id="textbox">
 
-    <br>
+                        <div class="mt-5">
+                            <input type="button" value="GET" class="btn btn-primary w-25" onclick="getValue()">
+                            <input type="button" value="POST" class="btn btn-primary w-25" onclick="setValue()">
+                        </div>
 
-    <input type="button" value="restGET" onclick="restGET()">
-    <input type="button" value="restPOST" onclick="restPOST()">
+                        <div class="mt-2">
+                            <input type="button" value="basicGET" class="btn btn-info w-25" onclick="restGET()">
+                            <input type="button" value="basicPOST" class="btn btn-info w-25" onclick="restPOST()">
+                        </div>
+
+                        <div class="mt-2">
+                            <input type="button" value="jwtGET" class="btn btn-success w-25" onclick="jwtGET()">
+                            <input type="button" value="jwtPOST" class="btn btn-success w-25" onclick="jwtPOST()">
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        LAB 4
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
